@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>咖啡页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            background-color: #f5f5f5;
+            float: left;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #ddd;
+        }
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .content h2 {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .product img {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .product-details h3 {
+            margin: 0;
+        }
+
+        .product-details p {
+            margin: 5px 0;
+            color: #777;
+        }
+
+        .product-details .price {
+            color: red;
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .product-details .monthly-sales {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .button {
+            background-color: #8f877b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #b02136;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .quantity {
+            width: 60px;
+            text-align: center;
+        }
+
+        .checkout-page {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <ul>
+        <li><a href="rexiao.htnl">热销</a></li>
+        <li><a href="coffee.html">咖啡</a></li>
+        <li><a href="tianpin.html">甜品</a></li>
+        <li><a href="jiancan.html">简餐</a></li>
+        <li><a href="drike.html">饮品</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <h2>咖啡</h2>
+
+    <div class="product">
+        <img src="https://pic.52112.com/2020/04/13/JPG-200413_311/02ksWSxeTN_small.jpg" alt="拿铁">
+        <div class="product-details">
+            <h3>拿铁</h3>
+            <p class="monthly-sales">月售999 赞99</p>
+            <p class="price">¥ 36</p>
+        </div>
+        <button class="button" onclick="openModal('拿铁', 36)">选规格</button>
+    </div>
+
+    <div class="product">
+        <img src="https://ts1.cn.mm.bing.net/th/id/R-C.8c215f5b559844167d1344611e36a4a4?rik=o2YhHYQv7WEc3w&riu=http%3a%2f%2fcdn.coffeeao.com%2fwp-content%2fuploads%2f2019%2f12%2f20191225_5e02d7e504b0e.jpg&ehk=CRUr%2fTmuOzSoTPzo7C599Wps5Q%2foS8no%2b1fFy%2b7raZo%3d&risl=&pid=ImgRaw&r=0" alt="卡布奇诺">
+        <div class="product-details">
+            <h3>卡布奇诺</h3>
+            <p class="monthly-sales">月售1111 赞1110</p>
+            <p class="price">¥ 36</p>
+        </div>
+        <button class="button" onclick="openModal('卡布奇诺', 36)">选规格</button>
+    </div>
+
+    <div class="product">
+        <img src="https://img.phb123.com/uploads/allimg/210518/47-21051Q12Q2P3.png" alt="黑咖啡">
+        <div class="product-details">
+            <h3>黑咖啡</h3>
+            <p class="monthly-sales">月售1111 赞1110</p>
+            <p class="price">¥ 30</p>
+        </div>
+        <button class="button" onclick="openModal('黑咖啡', 30)">选规格</button>
+    </div>
+
+</div>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title"></h2>
+        <p>价格: ¥ <span id="modal-price"></span></p>
+        <label for="quantity">数量:</label>
+        <input type="number" id="quantity" class="quantity" min="1" value="1">
+        <p>总价格: ¥ <span id="total-price"></span></p>
+        <button class="button" onclick="addToCart()">加入购物车</button>
+    </div>
+</div>
+
+<div class="checkout-page" id="checkout-page">
+    <h2>结算</h2>
+    <p>您已选择以下商品:</p>
+    <ul id="cart-items"></ul>
+    <p>总价格: ¥ <span id="checkout-total"></span></p>
+    <button class="button" onclick="checkout()">结算</button>
+</div>
+
+<script>
+    var modal = document.getElementById("myModal");
+    var modalTitle = document.getElementById("modal-title");
+    var modalPrice = document.getElementById("modal-price");
+    var totalPrice = document.getElementById("total-price");
+    var quantityInput = document.getElementById("quantity");
+
+    var cart = [];
+    var currentItem = null;
+
+    function openModal(itemName, itemPrice) {
+        currentItem = {name: itemName, price: itemPrice};
+        modalTitle.textContent = itemName;
+        modalPrice.textContent = itemPrice;
+        totalPrice.textContent = itemPrice;
+        quantityInput.value = 1;
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    quantityInput.oninput = function() {
+        var quantity = parseInt(quantityInput.value);
+        var total = currentItem.price * quantity;
+        totalPrice.textContent = total;
+    };
+
+    function addToCart() {
+        var quantity = parseInt(quantityInput.value);
+        currentItem.quantity = quantity;
+        currentItem.totalPrice = currentItem.price * quantity;
+        cart.push(currentItem);
+        closeModal();
+        updateCheckoutPage();
+    }
+
+    function updateCheckoutPage() {
+        var checkoutPage = document.getElementById("checkout-page");
+        var cartItems = document.getElementById("cart-items");
+        var checkoutTotal = document.getElementById("checkout-total");
+
+        cartItems.innerHTML = "";
+        var total = 0;
+        cart.forEach(item => {
+            var listItem = document.createElement("li");
+            listItem.textContent = item.name + " - 数量: " + item.quantity + " - 价格: ¥" + item.totalPrice;
+            cartItems.appendChild(listItem);
+            total += item.totalPrice;
+        });
+        checkoutTotal.textContent = total;
+
+        checkoutPage.style.display = "block";
+    }
+
+    function checkout() {
+        alert("结算成功！");
+        cart = [];
+        updateCheckoutPage();
+    }
+</script>
+
+</body>
+</html>

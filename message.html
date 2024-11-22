@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>留言板</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #b02136;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group button {
+            background-color: #8f877b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .form-group button:hover {
+            background-color: #b02136;
+        }
+
+        .messages {
+            margin-top: 20px;
+        }
+
+        .message {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+
+        .message p {
+            margin: 5px 0;
+        }
+
+        .message .time {
+            color: #777;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>留言板</h1>
+    <div class="form-group">
+        <label for="message">留言</label>
+        <textarea id="message"></textarea>
+    </div>
+    <div class="form-group">
+        <button onclick="submitMessage()">提交留言</button>
+    </div>
+    <div class="messages" id="messages"></div>
+</div>
+
+<script>
+    function submitMessage() {
+        var message = document.getElementById('message').value;
+        if (message.trim() === "") {
+            alert("留言内容不能为空！");
+            return;
+        }
+
+        var messagesDiv = document.getElementById('messages');
+        var newMessage = document.createElement('div');
+        newMessage.classList.add('message');
+
+        var messageText = document.createElement('p');
+        messageText.textContent = message;
+        newMessage.appendChild(messageText);
+
+        var timeText = document.createElement('p');
+        timeText.classList.add('time');
+        timeText.textContent = new Date().toLocaleString();
+        newMessage.appendChild(timeText);
+
+        messagesDiv.appendChild(newMessage);
+
+        document.getElementById('message').value = "";
+    }
+</script>
+
+</body>
+</html>

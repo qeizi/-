@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          background-image: url('https://img.zcool.cn/community/0109845cc949d8a801214168d3f4e7.jpg?x-oss-process=image/auto-orient,1/resize,m_lfit,w_1280,limit_1/sharpen,100'); /* 背景图片路径 */
+          background-size: cover;
+          background-position: center;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .title{
+            font-size: 50px;
+            margin-bottom: 30px;
+            color: black;
+        }
+    
+        .login-container {
+          background-color: rgba(255, 255, 255, 0.7); 
+          padding: 50px;
+          border-radius: 30px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+    
+        .form-group {
+          margin-bottom: 20px;
+        }
+    
+        .form-group label {
+          display: block;
+          margin-bottom: 5px;
+        }
+    
+        .form-group input {
+          width: 100%;
+          padding: 10px;
+          font-size: 16px;
+        }
+    
+        .btn-login {
+          width: 100%;
+          padding: 10px;
+          font-size: 16px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="login-container">
+        <h2 class="title">猫咖管理系统</h2>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="submit" class="btn-login">Login</button>
+        </form>
+      </div>
+    
+      <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+          event.preventDefault(); // 阻止表单默认提交行为
+          // 验证用户名和密码是否正确
+          var username = document.getElementById('username').value;
+          var password = document.getElementById('password').value;   
+          // 打印用户名和密码
+          console.log('Username:', username);
+          console.log('Password:', password);
+          window.location.href = "index.html";
+        });
+      </script>
+    </body>
+    </html>

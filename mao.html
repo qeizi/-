@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>猫咪预约</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cat-gallery {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .cat-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .cat-details {
+            display: none;
+            text-align: center;
+        }
+
+        .cat-details.active {
+            display: block;
+        }
+
+        .title {
+            font-size: 50px;
+            margin-bottom: 30px;
+            color: black;
+            text-align: center;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 class="title">猫咪预约</h1>
+
+    <div class="cat-gallery">
+        <img src="https://pic3.zhimg.com/v2-db5864a83160f1700fee6d4da08eb32d_r.jpg?source=1940ef5c" alt="布偶猫" class="cat-image" onclick="showDetails('cat1')">
+        <img src="https://img.zcool.cn/community/0140f45a504f7da8012180c5e512eb.jpg@1280w_1l_2o_100sh.jpg" alt="无毛猫" class="cat-image" onclick="showDetails('cat2')">
+        <img src="https://img.zcool.cn/community/0153665d4a8e91a8012187f4e64b0f.jpg@1280w_1l_2o_100sh.jpg" alt="波斯猫" class="cat-image" onclick="showDetails('cat3')">
+        <img src="https://ts1.cn.mm.bing.net/th/id/R-C.53c63396aae964b1c0e2c80834a985ba?rik=7PBxJ%2fkIHB5r8g&riu=http%3a%2f%2fimg.zcool.cn%2fcommunity%2f01c2d25652fdba32f87512f63d3163.jpg%401280w_1l_2o_100sh.jpg&ehk=fCjBdEuqwQrdIrMq8j8rzdw%2fh%2fMBkkeqnDCpkCBRbPA%3d&risl=&pid=ImgRaw&r=0" alt="折耳猫" class="cat-image" onclick="showDetails('cat4')">
+        <img src="https://pic2.zhimg.com/v2-7c69d185e1ac96160c1ecc95fae9df2d_r.jpg" alt="中华田园猫" class="cat-image" onclick="showDetails('cat5')">
+    </div>
+
+    <div id="cat1" class="cat-details">
+        <h2>布偶猫</h2>
+        <img src="https://pic3.zhimg.com/v2-db5864a83160f1700fee6d4da08eb32d_r.jpg?source=1940ef5c" alt="布偶猫" class="cat-image">
+        <p>价格: ¥76.00</p>
+        <label for="appointment-cat1">预约时间:</label>
+        <input type="datetime-local" id="appointment-cat1">
+        <button onclick="makeReservation('cat1')">加入购物车</button>
+    </div>
+
+    <div id="cat2" class="cat-details">
+        <h2>无毛猫</h2>
+        <img src="https://img.zcool.cn/community/0140f45a504f7da8012180c5e512eb.jpg@1280w_1l_2o_100sh.jpg" alt="无毛猫" class="cat-image">
+        <p>价格: ¥80.00</p>
+        <label for="appointment-cat2">预约时间:</label>
+        <input type="datetime-local" id="appointment-cat2">
+        <button onclick="makeReservation('cat2')">加入购物车</button>
+    </div>
+
+    <div id="cat3" class="cat-details">
+        <h2>波斯猫</h2>
+        <img src="https://img.zcool.cn/community/0153665d4a8e91a8012187f4e64b0f.jpg@1280w_1l_2o_100sh.jpg" alt="波斯猫" class="cat-image">
+        <p>价格: ¥85.00</p>
+        <label for="appointment-cat3">预约时间:</label>
+        <input type="datetime-local" id="appointment-cat3">
+        <button onclick="makeReservation('cat3')">加入购物车</button>
+    </div>
+
+    <div id="cat4" class="cat-details">
+        <h2>折耳猫</h2>
+        <img src="https://ts1.cn.mm.bing.net/th/id/R-C.53c63396aae964b1c0e2c80834a985ba?rik=7PBxJ%2fkIHB5r8g&riu=http%3a%2f%2fimg.zcool.cn%2fcommunity%2f01c2d25652fdba32f87512f63d3163.jpg%401280w_1l_2o_100sh.jpg&ehk=fCjBdEuqwQrdIrMq8j8rzdw%2fh%2fMBkkeqnDCpkCBRbPA%3d&risl=&pid=ImgRaw&r=0" alt="折耳猫" class="cat-image">
+        <p>价格: ¥90.00</p>
+        <label for="appointment-cat4">预约时间:</label>
+        <input type="datetime-local" id="appointment-cat4">
+        <button onclick="makeReservation('cat4')">加入购物车</button>
+    </div>
+
+    <div id="cat5" class="cat-details">
+        <h2>中华田园猫</h2>
+        <img src="https://pic2.zhimg.com/v2-7c69d185e1ac96160c1ecc95fae9df2d_r.jpg" alt="中华田园猫" class="cat-image">
+        <p>价格: ¥60.00</p>
+        <label for="appointment-cat5">预约时间:</label>
+        <input type="datetime-local" id="appointment-cat5">
+        <button onclick="makeReservation('cat5')">加入购物车</button>
+    </div>
+
+    <script>
+        function showDetails(catId) {
+            const details = document.querySelectorAll('.cat-details');
+            details.forEach(detail => detail.classList.remove('active'));
+
+            const selectedDetail = document.getElementById(catId);
+            if (selectedDetail) {
+                selectedDetail.classList.add('active');
+            }
+        }
+
+        function makeReservation(catId) {
+            const appointmentInput = document.getElementById('appointment-' + catId);
+            const appointmentTime = appointmentInput.value;
+
+            if (appointmentTime) {
+                alert(`预约成功！猫咪 ID: ${catId}, 预约时间: ${appointmentTime}`);
+            } else {
+                alert('请选择预约时间！');
+            }
+        }
+    </script>
+</body>
+</html>
